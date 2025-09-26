@@ -18,4 +18,5 @@
     <string name="alert_title_4">Are you even trying?</string>
     <string name="about_btn_desc">Go to about page</string>
     <string name="restart_btn_desc">Restart game</string>
+    <string name="slider_thumb_description">Slider thumb</string>
 </resources>
