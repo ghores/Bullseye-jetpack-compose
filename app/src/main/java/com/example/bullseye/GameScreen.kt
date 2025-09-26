@@ -28,6 +28,27 @@ fun GameScreen(modifier: Modifier = Modifier) {
     val sliderToInt = (sliderValue * 100).toInt()
     val targetValue by rememberSaveable { mutableIntStateOf(Random.nextInt(1, 100)) }
 
+    fun pointsForCurrentRound(): Int {
+        val maxScore = 100
+        val difference: Int = if (sliderToInt < targetValue) {
+            targetValue - sliderToInt
+        } else if (sliderToInt > targetValue) {
+            sliderToInt - targetValue
+        } else {
+            0
+        }
+        return maxScore - difference
+
+        //روش دوم
+        /*    val maxScore = 100
+            val difference = abs(targetValue - sliderToInt)
+            val points = maxScore - difference
+            if (points <= 0) {
+                return 0
+            }
+            return points*/
+    }
+
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
@@ -57,7 +78,8 @@ fun GameScreen(modifier: Modifier = Modifier) {
         if (alertIsVisible) {
             ResultDialog(
                 hideDialog = { alertIsVisible = false },
-                sliderValue = sliderToInt
+                sliderValue = sliderToInt,
+                points = pointsForCurrentRound()
             )
         }
     }
