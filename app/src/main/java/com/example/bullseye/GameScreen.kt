@@ -10,6 +10,10 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Slider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -22,6 +26,8 @@ import com.example.bullseye.ui.theme.BullseyeTheme
 
 @Composable
 fun GameScreen(modifier: Modifier = Modifier) {
+    var alertIsVisible by remember { mutableStateOf(false) }
+
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
@@ -62,11 +68,18 @@ fun GameScreen(modifier: Modifier = Modifier) {
                     modifier = Modifier.padding(end = 16.dp)
                 )
             }
-            Button(onClick = { }) {
+            Button(onClick = {
+                alertIsVisible = true
+            }) {
                 Text(text = "HIT ME")
             }
         }
         Spacer(Modifier.weight(0.5f))
+        if (alertIsVisible) {
+            ResultDialog(
+                hideDialog = { alertIsVisible = false }
+            )
+        }
     }
 }
 
