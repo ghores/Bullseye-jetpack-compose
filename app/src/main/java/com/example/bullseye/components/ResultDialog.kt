@@ -9,10 +9,11 @@ import com.example.bullseye.R
 
 @Composable
 fun ResultDialog(
+    dialogTitle: Int,
     hideDialog: () -> Unit,
     onRoundIncrement: () -> Unit,
     sliderValue: Int,
-    points: Int
+    points: Int,
 ) {
     AlertDialog(
         onDismissRequest = {
@@ -30,7 +31,7 @@ fun ResultDialog(
             }
         },
         title = {
-            Text(text = stringResource(R.string.result_dialog_title))
+            Text(text = stringResource(dialogTitle))
         },
         text = {
             Text(text = stringResource(R.string.result_dialog_message, sliderValue, points))

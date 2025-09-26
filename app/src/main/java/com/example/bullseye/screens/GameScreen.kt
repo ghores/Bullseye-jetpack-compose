@@ -20,11 +20,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.bullseye.R
 import com.example.bullseye.components.GameDetail
 import com.example.bullseye.components.GamePrompt
 import com.example.bullseye.components.ResultDialog
 import com.example.bullseye.components.TargetSlider
 import com.example.bullseye.ui.theme.BullseyeTheme
+import kotlin.math.abs
 import kotlin.random.Random
 
 @Composable
@@ -36,26 +38,40 @@ fun GameScreen(modifier: Modifier = Modifier) {
     var currentRound by rememberSaveable { mutableIntStateOf(1) }
     val sliderToInt = (sliderValue * 100).toInt()
 
+    fun differenceAmount(): Int = abs(targetValue - sliderToInt)
+
     fun pointsForCurrentRound(): Int {
         val maxScore = 100
-        val difference: Int = if (sliderToInt < targetValue) {
-            targetValue - sliderToInt
-        } else if (sliderToInt > targetValue) {
-            sliderToInt - targetValue
-        } else {
-            0
+        val difference = differenceAmount()
+        val points = maxScore - difference
+        if (points <= 0) {
+            return 0
         }
-        return maxScore - difference
+        return points
 
         //روش دوم
         /*    val maxScore = 100
-            val difference = abs(targetValue - sliderToInt)
-            val points = maxScore - difference
-            if (points <= 0) {
-                return 0
+            val difference: Int = if (sliderToInt < targetValue) {
+                targetValue - sliderToInt
+            } else if (sliderToInt > targetValue) {
+                sliderToInt - targetValue
+            } else {
+                0
             }
-            return points*/
+            return maxScore - difference*/
     }
+
+    fun alertTitle(): Int {
+        val difference = differenceAmount()
+        val title = when {
+            difference == 0 -> R.string.alert_title_1
+            difference < 5 -> R.string.alert_title_2
+            difference <= 10 -> R.string.alert_title_3
+            else -> R.string.alert_title_4
+        }
+        return title
+    }
+
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
@@ -90,6 +106,7 @@ fun GameScreen(modifier: Modifier = Modifier) {
         Spacer(Modifier.weight(0.5f))
         if (alertIsVisible) {
             ResultDialog(
+                dialogTitle = alertTitle(),
                 hideDialog = { alertIsVisible = false },
                 onRoundIncrement = {
                     currentRound++
