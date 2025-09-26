@@ -27,6 +27,7 @@ import com.example.bullseye.ui.theme.BullseyeTheme
 @Composable
 fun GameScreen(modifier: Modifier = Modifier) {
     var alertIsVisible by remember { mutableStateOf(false) }
+    var sliderValue by remember { mutableStateOf(0.5f) }
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -48,26 +49,10 @@ fun GameScreen(modifier: Modifier = Modifier) {
                 fontSize = 32.sp,
                 fontWeight = FontWeight.Bold
             )
-            Row(
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(
-                    text = stringResource(R.string.min_value_text),
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier.padding(start = 16.dp)
-                )
-                Slider(
-                    value = 0.5f,
-                    onValueChange = {},
-                    valueRange = 0.01f..1f,
-                    modifier = Modifier.weight(1f)
-                )
-                Text(
-                    text = stringResource(R.string.max_value_text),
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier.padding(end = 16.dp)
-                )
-            }
+            TargetSlider(
+                value = sliderValue,
+                onValueChange = { sliderValue = it }
+            )
             Button(onClick = {
                 alertIsVisible = true
             }) {
