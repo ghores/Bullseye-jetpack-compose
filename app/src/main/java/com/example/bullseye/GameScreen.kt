@@ -48,7 +48,6 @@ fun GameScreen(modifier: Modifier = Modifier) {
             }
             return points*/
     }
-
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,

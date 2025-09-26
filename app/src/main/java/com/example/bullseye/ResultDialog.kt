@@ -9,7 +9,6 @@ import androidx.compose.ui.res.stringResource
 
 @Composable
 fun ResultDialog(
-    modifier: Modifier = Modifier,
     hideDialog: () -> Unit,
     sliderValue: Int,
     points: Int
