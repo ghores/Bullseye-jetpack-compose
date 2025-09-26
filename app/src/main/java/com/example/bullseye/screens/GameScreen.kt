@@ -31,8 +31,9 @@ import kotlin.random.Random
 fun GameScreen(modifier: Modifier = Modifier) {
     var alertIsVisible by rememberSaveable { mutableStateOf(false) }
     var sliderValue by rememberSaveable { mutableFloatStateOf(0.5f) }
-    val targetValue by rememberSaveable { mutableIntStateOf(Random.nextInt(1, 100)) }
+    var targetValue by rememberSaveable { mutableIntStateOf(Random.nextInt(1, 100)) }
     var totalScore by rememberSaveable { mutableIntStateOf(0) }
+    var currentRound by rememberSaveable { mutableIntStateOf(1) }
     val sliderToInt = (sliderValue * 100).toInt()
 
     fun pointsForCurrentRound(): Int {
@@ -82,13 +83,18 @@ fun GameScreen(modifier: Modifier = Modifier) {
             }
             GameDetail(
                 modifier = Modifier.fillMaxWidth(),
-                totalScore = totalScore
+                totalScore = totalScore,
+                round = currentRound
             )
         }
         Spacer(Modifier.weight(0.5f))
         if (alertIsVisible) {
             ResultDialog(
                 hideDialog = { alertIsVisible = false },
+                onRoundIncrement = {
+                    currentRound++
+                    targetValue = Random.nextInt(1, 100)
+                },
                 sliderValue = sliderToInt,
                 points = pointsForCurrentRound()
             )

@@ -17,7 +17,8 @@ import com.example.bullseye.R
 @Composable
 fun GameDetail(
     modifier: Modifier = Modifier,
-    totalScore: Int = 0
+    totalScore: Int = 0,
+    round: Int = 1
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -30,7 +31,7 @@ fun GameDetail(
             Text(text = stringResource(R.string.start_over))
         }
         GameInfo(label = stringResource(R.string.score_label), value = totalScore)
-        GameInfo(label = stringResource(R.string.current_round_label), value = 1)
+        GameInfo(label = stringResource(R.string.current_round_label), value = round)
         Button(
             onClick = {}
         ) {

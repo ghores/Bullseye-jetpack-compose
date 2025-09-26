@@ -10,17 +10,20 @@ import com.example.bullseye.R
 @Composable
 fun ResultDialog(
     hideDialog: () -> Unit,
+    onRoundIncrement: () -> Unit,
     sliderValue: Int,
     points: Int
 ) {
     AlertDialog(
         onDismissRequest = {
             hideDialog()
+            onRoundIncrement()
         },
         confirmButton = {
             TextButton(
                 onClick = {
                     hideDialog()
+                    onRoundIncrement()
                 }
             ) {
                 Text(text = stringResource(R.string.result_dialog_button_text))
