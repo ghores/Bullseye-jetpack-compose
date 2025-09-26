@@ -29,13 +29,15 @@ import com.example.bullseye.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AboutScreen() {
+fun AboutScreen(
+    onNavigateBack: () -> Unit
+) {
     Scaffold(
         topBar = {
             TopAppBar(
                 title = { Text(stringResource(id = R.string.about_page_title)) },
                 navigationIcon = {
-                    IconButton(onClick = { }) {
+                    IconButton(onClick = { onNavigateBack() }) {
                         Icon(
                             imageVector = Icons.Filled.ArrowBack,
                             contentDescription = stringResource(id = R.string.back_button_text)
@@ -69,7 +71,7 @@ fun AboutScreen() {
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 24.dp)
             )
             Button(
-                onClick = { },
+                onClick = { onNavigateBack() },
                 shape = MaterialTheme.shapes.medium,
             ) {
                 Text(text = stringResource(id = R.string.back_button_text))
@@ -81,5 +83,5 @@ fun AboutScreen() {
 @Preview(showBackground = true, device = Devices.AUTOMOTIVE_1024p, widthDp = 864, heightDp = 432)
 @Composable
 fun AboutScreenPreview() {
-    AboutScreen()
+    AboutScreen(onNavigateBack = {})
 }

@@ -37,7 +37,10 @@ import kotlin.math.abs
 import kotlin.random.Random
 
 @Composable
-fun GameScreen(modifier: Modifier = Modifier) {
+fun GameScreen(
+    modifier: Modifier = Modifier,
+    onNavigateToAbout: () -> Unit
+) {
     var alertIsVisible by rememberSaveable { mutableStateOf(false) }
     var sliderValue by rememberSaveable { mutableFloatStateOf(0.5f) }
     var targetValue by rememberSaveable { mutableIntStateOf(Random.nextInt(1, 100)) }
@@ -129,7 +132,8 @@ fun GameScreen(modifier: Modifier = Modifier) {
                     modifier = Modifier.fillMaxWidth(),
                     totalScore = totalScore,
                     round = currentRound,
-                    onStartOver = { startNewGame() }
+                    onStartOver = { startNewGame() },
+                    onNavigateToAbout = onNavigateToAbout
                 )
             }
             Spacer(Modifier.weight(0.5f))
@@ -158,6 +162,6 @@ fun GameScreen(modifier: Modifier = Modifier) {
 @Composable
 fun GameScreenPreview() {
     BullseyeTheme {
-        GameScreen()
+        GameScreen(onNavigateToAbout = {})
     }
 }
