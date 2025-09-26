@@ -31,8 +31,9 @@ import kotlin.random.Random
 fun GameScreen(modifier: Modifier = Modifier) {
     var alertIsVisible by rememberSaveable { mutableStateOf(false) }
     var sliderValue by rememberSaveable { mutableFloatStateOf(0.5f) }
-    val sliderToInt = (sliderValue * 100).toInt()
     val targetValue by rememberSaveable { mutableIntStateOf(Random.nextInt(1, 100)) }
+    var totalScore by rememberSaveable { mutableIntStateOf(0) }
+    val sliderToInt = (sliderValue * 100).toInt()
 
     fun pointsForCurrentRound(): Int {
         val maxScore = 100
@@ -75,10 +76,14 @@ fun GameScreen(modifier: Modifier = Modifier) {
             )
             Button(onClick = {
                 alertIsVisible = true
+                totalScore += pointsForCurrentRound()
             }) {
                 Text(text = "HIT ME")
             }
-            GameDetail(modifier = Modifier.fillMaxWidth())
+            GameDetail(
+                modifier = Modifier.fillMaxWidth(),
+                totalScore = totalScore
+            )
         }
         Spacer(Modifier.weight(0.5f))
         if (alertIsVisible) {
