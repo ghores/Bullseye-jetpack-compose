@@ -44,10 +44,13 @@ fun GameScreen(modifier: Modifier = Modifier) {
         val maxScore = 100
         val difference = differenceAmount()
         val points = maxScore - difference
-        if (points <= 0) {
-            return 0
+        var bonus = 0
+        if (difference == 0) {
+            bonus = 100
+        } else if (difference == 1) {
+            bonus = 50
         }
-        return points
+        return points + bonus
 
         //روش دوم
         /*    val maxScore = 100
