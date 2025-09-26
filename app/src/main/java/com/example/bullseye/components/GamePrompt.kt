@@ -1,4 +1,4 @@
-package com.example.bullseye
+package com.example.bullseye.components
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -11,6 +11,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.bullseye.R
 import com.example.bullseye.ui.theme.BullseyeTheme
 
 @Composable
