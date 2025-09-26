@@ -14,14 +14,17 @@ import androidx.compose.ui.unit.sp
 import com.example.bullseye.ui.theme.BullseyeTheme
 
 @Composable
-fun GamePrompt(modifier: Modifier = Modifier) {
+fun GamePrompt(
+    modifier: Modifier = Modifier,
+    targetValue: Int
+) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier
     ) {
         Text(text = stringResource(R.string.instruction_text))
         Text(
-            text = stringResource(R.string.target_value_text),
+            text = targetValue.toString(),
             fontSize = 32.sp,
             fontWeight = FontWeight.Bold,
             modifier = Modifier.padding(8.dp)
@@ -33,6 +36,6 @@ fun GamePrompt(modifier: Modifier = Modifier) {
 @Composable
 fun GamePromptPreview() {
     BullseyeTheme {
-        GamePrompt()
+        GamePrompt(targetValue = 2)
     }
 }

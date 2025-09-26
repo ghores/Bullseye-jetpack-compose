@@ -9,6 +9,8 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -17,12 +19,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.bullseye.ui.theme.BullseyeTheme
+import kotlin.random.Random
 
 @Composable
 fun GameScreen(modifier: Modifier = Modifier) {
     var alertIsVisible by rememberSaveable { mutableStateOf(false) }
-    var sliderValue by rememberSaveable { mutableStateOf(0.5f) }
+    var sliderValue by rememberSaveable { mutableFloatStateOf(0.5f) }
     val sliderToInt = (sliderValue * 100).toInt()
+    val targetValue by rememberSaveable { mutableIntStateOf(Random.nextInt(1, 100)) }
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -38,7 +42,7 @@ fun GameScreen(modifier: Modifier = Modifier) {
             modifier = Modifier
                 .weight(9f)
         ) {
-            GamePrompt()
+            GamePrompt(targetValue = targetValue)
             TargetSlider(
                 value = sliderValue,
                 onValueChange = { sliderValue = it }
