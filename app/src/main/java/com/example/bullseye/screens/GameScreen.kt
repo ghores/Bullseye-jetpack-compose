@@ -17,6 +17,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -39,7 +40,7 @@ fun GameScreen(modifier: Modifier = Modifier) {
     val sliderToInt = (sliderValue * 100).toInt()
 
     fun differenceAmount(): Int = abs(targetValue - sliderToInt)
-
+    fun newTargetValue(): Int = Random.nextInt(1, 100)
     fun pointsForCurrentRound(): Int {
         val maxScore = 100
         val difference = differenceAmount()
@@ -62,6 +63,13 @@ fun GameScreen(modifier: Modifier = Modifier) {
                 0
             }
             return maxScore - difference*/
+    }
+
+    fun startNewGame() {
+        totalScore = 0
+        currentRound = 1
+        sliderValue = 0.5f
+        targetValue = newTargetValue()
     }
 
     fun alertTitle(): Int {
@@ -98,12 +106,13 @@ fun GameScreen(modifier: Modifier = Modifier) {
                 alertIsVisible = true
                 totalScore += pointsForCurrentRound()
             }) {
-                Text(text = "HIT ME")
+                Text(text = stringResource(R.string.hit_me_button_text))
             }
             GameDetail(
                 modifier = Modifier.fillMaxWidth(),
                 totalScore = totalScore,
-                round = currentRound
+                round = currentRound,
+                onStartOver = { startNewGame() }
             )
         }
         Spacer(Modifier.weight(0.5f))
@@ -113,7 +122,7 @@ fun GameScreen(modifier: Modifier = Modifier) {
                 hideDialog = { alertIsVisible = false },
                 onRoundIncrement = {
                     currentRound++
-                    targetValue = Random.nextInt(1, 100)
+                    targetValue = newTargetValue()
                 },
                 sliderValue = sliderToInt,
                 points = pointsForCurrentRound()

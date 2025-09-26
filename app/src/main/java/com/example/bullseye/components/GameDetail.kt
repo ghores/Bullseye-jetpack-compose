@@ -18,7 +18,8 @@ import com.example.bullseye.R
 fun GameDetail(
     modifier: Modifier = Modifier,
     totalScore: Int = 0,
-    round: Int = 1
+    round: Int = 1,
+    onStartOver: () -> Unit,
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -26,7 +27,7 @@ fun GameDetail(
         modifier = modifier
     ) {
         Button(
-            onClick = {}
+            onClick = { onStartOver() }
         ) {
             Text(text = stringResource(R.string.start_over))
         }
@@ -54,5 +55,5 @@ fun GameInfo(label: String, value: Int = 0) {
 @Preview(showBackground = true)
 @Composable
 private fun GameDetailPreview() {
-    GameDetail()
+    GameDetail(onStartOver = {})
 }
