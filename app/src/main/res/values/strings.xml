@@ -19,4 +19,5 @@
     <string name="about_btn_desc">Go to about page</string>
     <string name="restart_btn_desc">Restart game</string>
     <string name="slider_thumb_description">Slider thumb</string>
+    <string name="background_image">Background Image</string>
 </resources>
